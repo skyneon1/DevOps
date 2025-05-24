@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   useTheme,
+  Container,
 } from '@mui/material';
 import {
   LineChart,
@@ -72,102 +73,67 @@ const Dashboard = () => {
   );
 
   return (
-    <Box p={3}>
-      <Typography variant="h4" gutterBottom>
-        Security Dashboard
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        SecureVision Dashboard
       </Typography>
       
       <Grid container spacing={3}>
-        {/* Metric Cards */}
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Active Threats"
-            value={securityMetrics.threats}
-            icon={<SecurityIcon color="error" />}
-            color="error.main"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Vulnerabilities"
-            value={securityMetrics.vulnerabilities}
-            icon={<WarningIcon color="warning" />}
-            color="warning.main"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Security Incidents"
-            value={securityMetrics.incidents}
-            icon={<TimelineIcon color="info" />}
-            color="info.main"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <MetricCard
-            title="Compliance Score"
-            value={`${securityMetrics.compliance}%`}
-            icon={<CheckCircleIcon color="success" />}
-            color="success.main"
-          />
-        </Grid>
-
-        {/* Threat Timeline Chart */}
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ p: 2, height: '400px' }}>
-            <Typography variant="h6" gutterBottom>
-              Threat Timeline
-            </Typography>
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={threatData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="threats"
-                  stroke={theme.palette.error.main}
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+        <Grid item xs={12} md={4}>
+          <Paper
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 140,
+              bgcolor: 'primary.dark',
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <SecurityIcon sx={{ mr: 1 }} />
+              <Typography variant="h6">Security Score</Typography>
+            </Box>
+            <Typography variant="h3">85%</Typography>
           </Paper>
         </Grid>
-
-        {/* Vulnerability Distribution */}
+        
         <Grid item xs={12} md={4}>
-          <Paper sx={{ p: 2, height: '400px' }}>
-            <Typography variant="h6" gutterBottom>
-              Vulnerability Distribution
-            </Typography>
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={vulnerabilityData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  label
-                >
-                  {vulnerabilityData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={theme.palette.primary.main}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+          <Paper
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 140,
+              bgcolor: 'error.dark',
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <WarningIcon sx={{ mr: 1 }} />
+              <Typography variant="h6">Active Threats</Typography>
+            </Box>
+            <Typography variant="h3">3</Typography>
+          </Paper>
+        </Grid>
+        
+        <Grid item xs={12} md={4}>
+          <Paper
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 140,
+              bgcolor: 'success.dark',
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+              <CheckCircleIcon sx={{ mr: 1 }} />
+              <Typography variant="h6">Protected Assets</Typography>
+            </Box>
+            <Typography variant="h3">24</Typography>
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 
